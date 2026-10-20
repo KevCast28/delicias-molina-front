@@ -1,0 +1,134 @@
+
+<div class="cart-drawer">
+
+  <!-- HEADER -->
+  <div class="cart-drawer__header">
+    <div>
+      <h2>Tu carrito</h2>
+      <span>{{ totalItems() }} productos</span>
+    </div>
+
+    <button
+      class="cart-drawer__close"
+      type="button"
+      aria-label="Cerrar carrito"
+      (click)="close()">
+      X
+    </button>
+  </div>
+
+  <!-- EMPTY CART -->
+  @if (items().length === 0) {
+    <div class="cart-drawer__empty">
+      <span class="cart-drawer__empty-icon">🛒</span>
+
+      <h3>Tu carrito está vacío</h3>
+
+      <p>
+        Agrega algunos productos para comenzar tu pedido
+      </p>
+    </div>
+  } @else {
+
+    <!-- PRODUCTS -->
+    <div class="cart-drawer__items">
+      @for (item of items(); track item.product.id) {
+
+        <article class="cart-item">
+
+          <div class="cart-item__row">
+
+            <!-- PRODUCT IMAGE -->
+            <img
+              class="cart-item__image"
+              [src]="getProductImage(item.product.categoryName)"
+              [alt]="item.product.productName"
+              (error)="onImageError($event)"
+            />
+
+            <!-- PRODUCT DETAILS -->
+            <div class="cart-item__details">
+
+              <div class="cart-item__content">
+
+                <div class="cart-item__info">
+                  <h3>{{ item.product.productName }}</h3>
+
+                  <span class="cart-item__price">
+                    {{ item.product.basePrice | currency:'MXN':'symbol-narrow':'1.2-2' }}
+                  </span>
+                </div>
+
+                <button
+                  class="cart-item__remove"
+                  type="button"
+                  [attr.aria-label]="'Eliminar ' + item.product.productName"
+                  (click)="removeProduct(item.product.id)">
+                  X
+                </button>
+
+              </div>
+
+              <!-- QUANTITY AND SUBTOTAL -->
+              <div class="cart-item__actions">
+
+                <div class="cart-item__quantity">
+                  <button
+                    type="button"
+                    [attr.aria-label]="'Disminuir cantidad de ' + item.product.productName"
+                    (click)="decreaseQuantity(item.product.id)">
+                    -
+                  </button>
+
+                  <span>{{ item.quantity }}</span>
+
+                  <button
+                    type="button"
+                    [attr.aria-label]="'Aumentar cantidad de ' + item.product.productName"
+                    (click)="increaseQuantity(item.product)">
+                    +
+                  </button>
+                </div>
+
+                <strong>
+                  {{ item.product.basePrice * item.quantity | currency:'MXN':'symbol-narrow':'1.2-2' }}
+                </strong>
+
+              </div>
+
+            </div>
+          </div>
+
+        </article>
+      }
+    </div>
+
+    <!-- ORDER SUMMARY -->
+    <div class="cart-drawer__summary">
+
+      <div class="cart-drawer__total">
+        <span>Total</span>
+
+        <strong>
+          {{ totalPrice() | currency:'MXN':'symbol-narrow':'1.2-2' }}
+        </strong>
+      </div>
+
+      <a
+        class="cart-drawer__checkout"
+        routerLink="/checkout"
+        (click)="close()">
+        Continuar con el pedido
+      </a>
+
+      <button
+        class="cart-drawer__clear"
+        type="button"
+        (click)="clearCart()">
+        Vaciar carrito
+      </button>
+
+    </div>
+  }
+
+</div>

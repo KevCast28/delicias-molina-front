@@ -1,0 +1,52 @@
+<nav class="navbar">
+  <div class="navbar__container">
+    <a class="navbar__brand" routerLink="/" (click)="closeMenu()">
+      Delicias Molina</a
+    >
+
+    <div class="navbar__links" [class.navbar__links--open]="isMenuOpen">
+      <a
+        routerLink="/"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+        (click)="closeMenu()"
+        >Inicio</a>
+      <a routerLink="/menu" routerLinkActive="active" (click)="closeMenu()"
+        >Menú</a>
+      <a
+        routerLink="/custom-order"
+        routerLinkActive="active"
+        (click)="closeMenu()"
+        >Personaliza tu pedido</a>
+    </div>
+
+    <div class="navbar__actions">
+      <button
+        class="navbar__cart"
+        type="button"
+        aria-label="Abrir carrito"
+        (click)="openCart()"
+        >
+        <span class="navbar__cart-icon">🛒</span>
+        <span class="navbar__cart-text">Carrito</span>
+
+        @if (totalItems() > 0) {
+          <span class="navbar__cart-count">
+            {{ totalItems() }}
+          </span>
+        }
+      </button>
+
+
+
+      <button
+        class="navbar__toggle"
+        type="button"
+        (click)="toggleMenu()"
+        [attr.aria-expand]="isMenuOpen"
+        aria-label="Abrir menú de navegación">
+        ☰
+      </button>
+    </div>
+  </div>
+</nav>

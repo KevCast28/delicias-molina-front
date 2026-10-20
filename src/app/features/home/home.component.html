@@ -1,0 +1,111 @@
+<section class="hero">
+  <div class="hero__content">
+    <h1 class="hero__title">
+      Delicias Molina
+      <span>Tus postres preferidos</span>
+    </h1>
+
+    <p class="hero__description">
+      Descubre nuetra selección de postres artesanales preparados para acompañar
+      tus momentos especiales.
+    </p>
+
+    <a class="hero__cta" routerLink="/menu">Ver menú</a>
+
+    <div class="hero__benefits">
+      <article class="benefit">
+        <div class="benefit__icon" aria-hidden="true">♡</div>
+        <h2>Calidad</h2>
+        <p>Hechos con dedicación</p>
+      </article>
+
+      <article class="benefit">
+        <div class="benefit__icon" aria-hidden="true">◇</div>
+
+        <h2>Atención</h2>
+        <p>Directa y personalizada</p>
+      </article>
+
+      <article class="benefit">
+        <div class="benefit__icon" aria-hidden="true">☆</div>
+
+        <h2>A tu gusto</h2>
+        <p>Opciones para cada ocasión</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="categories">
+  <div class="categories__container">
+    <h2 class="categories__title">Nuestro Menú</h2>
+
+    <div class="categories__grid">
+      @for (category of categories; track category.id) {
+        <article class="category-card">
+          <div class="category-card__icon" aria-hidden="true">♡</div>
+
+          <h3>{{ category.categoryName }}</h3>
+
+          <a class="category-card__link" routerLink="/menu"> Ver productos</a>
+        </article>
+      }
+    </div>
+  </div>
+</section>
+
+<section class="products">
+  <div class="products__container">
+    <div class="products__header">
+      <h2>Productos</h2>
+
+      <a routerLink="/menu"> Ver todo</a>
+    </div>
+
+    <div class="products__grid">
+      @for (product of products; track product.id) {
+        <article class="product-card">
+          <div class="product-card__image-container">
+            <img
+              class="product-card__image"
+              [src]="getProductImage(product.categoryName)"
+              [alt]="product.productName"
+              (error)="onImageError($event)"
+            />
+          </div>
+
+          <div class="product-card__content">
+            <div class="product-card__header">
+              <h3>
+                {{ product.productName }}
+              </h3>
+
+              <button
+                class="product-card__add"
+                type="button"
+                aria-label="Agregar producto al carrito"
+                (click)="addToCart(product)"
+              >
+                +
+              </button>
+            </div>
+
+            <p class="product-card__description">
+              {{ product.description }}
+            </p>
+
+            <div class="product-card__footer">
+              <span class="product-card__price">
+                ${{ product.basePrice }}
+              </span>
+
+              <span class="product-card__category">
+                {{ product.categoryName }}
+              </span>
+            </div>
+          </div>
+        </article>
+      }
+    </div>
+  </div>
+</section>

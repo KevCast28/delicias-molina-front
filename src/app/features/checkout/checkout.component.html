@@ -1,0 +1,344 @@
+<section class="checkout">
+  <div class="checkout__container">
+    <div class="checkout__heading">
+      <a routerLink="/menu" class="checkout__back"> Volver al menú </a>
+
+      <h1>{{ createdOrder() ? "Confirmación de pedido" : "Tu pedido" }}</h1>
+      <p>
+        {{
+          createdOrder()
+          ? "Consulta los detalles de tu pedido registrado en Delicias Molina"
+          : "Revisa tus productos y completa tus datos para continuar con Delicias Molina."
+        }}
+      </p>
+    </div>
+
+    @if (createdOrder(); as order) {
+      <div class="checkout__success">
+        <div class="checkout__success-header">
+          <div class="checkout__success-icon" aria-hidden="true">
+            ✓
+          </div>
+
+          <h2>¡Pedido registrado correctamente!</h2>
+
+          <p>
+            Gracias por elegir Delicias Molina.
+            Hemos recibido los datos de tu pedido.
+          </p>
+        </div>
+
+        <div class="checkout__success-body">
+          <div class="checkout__success-top">
+            <div>
+              <span class="checkout__success-label">
+                Número de pedido
+              </span>
+
+              <h3>#{{ order.id }}</h3>
+            </div>
+
+            <span class="checkout__status">
+              {{
+                order.orderStatus === "PENDING"
+                ? "Pendiente"
+                : order.orderStatus
+              }}
+            </span>
+          </div>
+
+          <div class="checkout__success-details">
+            <div>
+              <span>Cliente</span>
+              <strong>{{ order.clientName }}</strong>
+            </div>
+
+            <div>
+              <span>Teléfono</span>
+              <strong>{{ order.telephone }}</strong>
+            </div>
+
+            <div>
+              <span>Fecha de entrega solicitada</span>
+              <strong>{{ order.deliveryDate }}</strong>
+            </div>
+          </div>
+
+          <div class="checkout__success-products">
+            <h3>Productos del pedido</h3>
+
+            @for (item of order.items; track item.productId) {
+              <div class="checkout__success-product">
+                <div>
+                  <strong>{{ item.productName }}</strong>
+
+                  <span>
+                    {{ item.quantity }} x
+                    {{
+                      item.unitPrice | currency: "MXN" : "symbol-narrow" : "1.2-2"
+                    }}
+                  </span>
+                </div>
+
+                <strong>
+                  {{
+                    item.subtotal | currency: "MXN" : "symbol-narrow" : "1.2-2"
+                  }}
+                </strong>
+              </div>
+            }
+          </div>
+
+          @if (order.comments) {
+            <div class="checkout__success-comments">
+              <h3>Indicaciones adicionales</h3>
+              <p>{{ order.comments }}</p>
+            </div>
+          }
+
+          @if (order.total !== null) {
+            <div class="checkout__success-total">
+              <span>Total registrado</span>
+
+              <strong>
+                {{
+                  order.total | currency: "MXN" : "symbol-narrow" : "1.2-2"
+                }}
+              </strong>
+            </div>
+          }
+
+          <div class="checkout__success-notice">
+            <strong>¿Qué sigue?</strong>
+
+            <p>
+              Tu pedido está registrado y pendiente de confirmación por Delicias Molina.
+              La fecha de entrega está sujeta a confirmación y todavía no se ha realizado ningún pago.
+            </p>
+          </div>
+
+          <a routerLink="/menu" class="checkout__success-back">
+            Volver al menú
+          </a>
+        </div>
+      </div>
+    } @else if (isCartEmpty()) {
+      <div class="checkout__empty">
+        <span>🛒</span>
+
+        <h2>Tu carrito está vacío</h2>
+
+        <p>Agrega algunos productos antes de continuar con tu pedido.</p>
+
+        <a routerLink="/menu"> Explorar productos </a>
+      </div>
+    } @else {
+      <div class="checkout__grid">
+        <div class="checkout__form-card">
+          <h2>Datos del cliente</h2>
+
+          <form
+            [formGroup]="checkoutForm"
+            (ngSubmit)="reviewOrder()"
+            novalidate
+          >
+            <div class="form-field">
+              <label for="clientName"> Nombre completo * </label>
+
+              <input
+                id="clientName"
+                type="text"
+                formControlName="clientName"
+                maxlength="80"
+                autocomplete="name"
+                placeholder="Ej. Juan Pérez"
+              />
+
+              @if (controls.clientName.touched && controls.clientName.invalid) {
+                <small class="form-field__error">
+                  Ingresa tu nombre completo (máximo 80 caracteres).
+                </small>
+              }
+            </div>
+
+            <div class="form-field">
+              <label for="telephone"> Teléfono * </label>
+
+              <input
+                id="telephone"
+                type="tel"
+                formControlName="telephone"
+                maxlength="10"
+                inputmode="numeric"
+                autocomplete="tel-national"
+                placeholder="10 dígitos"
+              />
+
+              @if (controls.telephone.touched && controls.telephone.invalid) {
+                <small class="form-field__error">
+                  Ingresa un teléfono de exactamente 10 dígitos.
+                </small>
+              }
+            </div>
+
+            <div class="form-field">
+              <label for="deliveryDate"> Fecha de entrega * </label>
+
+              <input
+                id="deliveryDate"
+                type="date"
+                formControlName="deliveryDate"
+                [min]="today"
+                [attr.aria-invalid]="
+                  controls.deliveryDate.touched && controls.deliveryDate.invalid
+                "
+              />
+
+              @if (
+                controls.deliveryDate.touched &&
+                controls.deliveryDate.hasError("required")
+              ) {
+                <small class="form-field__error">
+                  Selecciona una fecha de entrega.
+                </small>
+              }
+
+              @if (
+                controls.deliveryDate.touched &&
+                controls.deliveryDate.hasError("pastDate")
+              ) {
+                <small class="form-field__error">
+                  La fecha de entrega no puede ser anterior a hoy.
+                </small>
+              }
+            </div>
+
+            <div class="form-field">
+              <label for="comments"> Comentarios adicionales </label>
+
+              <textarea
+                id="comments"
+                formControlName="comments"
+                maxlength="500"
+                rows="4"
+                placeholder="¿Indicaciones especiales? Déjalas aquí."
+              ></textarea>
+
+              <small class="form-field__hint">
+                {{ controls.comments.value.length }}/500 caracteres
+              </small>
+            </div>
+
+            <button
+              class="checkout__submit"
+              type="submit"
+              [disabled]="isSubmitting()"
+            >
+              Revisar datos del pedido
+            </button>
+          </form>
+
+          @if (orderPreview && !createdOrder()) {
+            <div class="checkout__preview">
+              <h3>Datos listos para enviar</h3>
+
+              <p>
+                <strong>Cliente:</strong>
+                {{ orderPreview.clientName }}
+              </p>
+
+              <p>
+                <strong>Teléfono:</strong>
+                {{ orderPreview.telephone }}
+              </p>
+
+              <p>
+                <strong>Entrega:</strong>
+                {{ orderPreview.deliveryDate }}
+              </p>
+
+              <p>
+                <strong>Productos:</strong>
+                {{ orderPreview.items.length }}
+                diferentes
+              </p>
+
+              <p class="checkout__preview-note">
+                Esta es una revisión. El pedido todavía no ha sido registrado ni
+                enviado por WhatsApp.
+              </p>
+
+              @if (submitError()) {
+                <p class="checkout__error" role="alert">
+                  {{ submitError() }}
+                </p>
+              }
+
+              <div class="checkout__preview-actions">
+                <button
+                  type="button"
+                  (click)="confirmOrder()"
+                  [disabled]="isSubmitting()"
+                >
+                  {{
+                    isSubmitting()
+                      ? "Registrando pedido..."
+                      : "Confirmar y registrar pedido"
+                  }}
+                </button>
+
+                <button
+                  type="button"
+                  (click)="editOrder()"
+                  [disabled]="isSubmitting()"
+                >
+                  Editar datos
+                </button>
+              </div>
+            </div>
+          }
+        </div>
+
+        <aside class="checkout__summary">
+          <h2>Resumen del pedido</h2>
+
+          <div class="checkout__items">
+            @for (item of items(); track item.product.id) {
+              <div class="checkout-item">
+                <div class="checkout-item__info">
+                  <h3>{{ item.product.productName }}</h3>
+
+                  <span> Cantidad: {{ item.quantity }} </span>
+                </div>
+
+                <strong>
+                  {{
+                    item.product.basePrice * item.quantity
+                      | currency: "MXN" : "symbol-narrow" : "1.2-2"
+                  }}
+                </strong>
+              </div>
+            }
+          </div>
+
+          <div class="checkout__summary-total">
+            <span> Total estimado ({{ totalItems() }} unidades) </span>
+
+            <strong>
+              {{ totalPrice() | currency: "MXN" : "symbol-narrow" : "1.2-2" }}
+            </strong>
+          </div>
+
+          <div class="checkout__notice">
+            <p>Ningún pago se realiza en línea.</p>
+
+            <p>
+              El importe definitivo será calculado por Delicias Molina al
+              registrar el pedido.
+            </p>
+          </div>
+        </aside>
+      </div>
+    }
+  </div>
+</section>

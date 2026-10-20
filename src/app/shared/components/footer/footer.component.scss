@@ -1,0 +1,101 @@
+.footer {
+  margin-top: auto;
+
+  background-color: var(--color-primary);
+  color: var(--color-white);
+
+  &__container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2.5rem 1.5rem;
+
+    display: grid;
+    grid-template-columns: 2fr 1fr 1.5fr;
+    gap: 3rem;
+  }
+
+  &__brand {
+    h2 {
+      margin: 0 0 0.75rem;
+
+      font-size: 1.25rem;
+      font-weight: 700;
+    }
+
+    p {
+      max-width: 350px;
+      margin: 0;
+
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+  }
+
+  &__navigation,
+  &__contact {
+    h3 {
+      margin: 0 0 0.75rem;
+
+      font-size: 1rem;
+      font-weight: 700;
+    }
+  }
+
+  &__navigation {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+
+    a {
+      color: var(--color-white);
+
+      font-size: 0.9rem;
+      text-decoration: none;
+
+      transition: opacity 0.2s ease;
+
+      &:hover {
+        opacity: 0.75;
+      }
+    }
+  }
+
+  &__contact {
+    p {
+      margin: 0;
+
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+  }
+
+  &__bottom {
+    padding: 1rem 1.5rem;
+
+    border-top: 1px solid rgba(255, 255, 255, 0.35);
+
+    text-align: center;
+
+    p {
+      margin: 0;
+
+      font-size: 0.8rem;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .footer {
+    &__container {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+
+      padding: 2rem 1rem;
+    }
+
+    &__bottom {
+      padding: 1rem;
+    }
+  }
+}

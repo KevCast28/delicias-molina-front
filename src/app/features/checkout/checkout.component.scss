@@ -1,0 +1,727 @@
+/* ========================================
+   CHECKOUT - DELICIAS MOLINA
+======================================== */
+
+.checkout {
+  min-height: 70vh;
+  padding: 48px 20px 80px;
+  background: #fff9fc;
+}
+
+.checkout__container {
+  width: 100%;
+  max-width: 1150px;
+  margin: 0 auto;
+}
+
+.checkout__heading {
+  margin-bottom: 32px;
+
+  h1 {
+    margin: 16px 0 8px;
+    font-size: clamp(2rem, 4vw, 2.8rem);
+    color: #0a0a0a;
+  }
+
+  p {
+    margin: 0;
+    color: #666;
+    line-height: 1.6;
+  }
+}
+
+.checkout__back {
+  color: var(--color-primary);
+  text-decoration: none;
+  font-weight: 600;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+/* ========================================
+   MAIN LAYOUT
+======================================== */
+
+.checkout__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+  align-items: start;
+  gap: 28px;
+}
+
+.checkout__form-card,
+.checkout__summary {
+  min-width: 0;
+  padding: 28px;
+  border: 1px solid #f1dce7;
+  border-radius: 16px;
+  background: #fff;
+
+  h2 {
+    margin: 0 0 24px;
+    font-size: 1.4rem;
+  }
+}
+
+/* ========================================
+   FORM
+======================================== */
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 22px;
+
+  label {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #222;
+  }
+
+  input,
+  textarea {
+    width: 100%;
+    box-sizing: border-box;
+
+    padding: 13px 14px;
+
+    border: 1px solid #ddd;
+    border-radius: 9px;
+
+    background: #fff;
+    color: #222;
+
+    font: inherit;
+
+    transition:
+      border-color 200ms ease,
+      box-shadow 200ms ease;
+
+    &:focus {
+      outline: none;
+      border-color: var(--color-primary);
+      box-shadow: 0 0 0 3px rgba(251, 100, 182, 0.14);
+    }
+  }
+
+  textarea {
+    resize: vertical;
+    min-height: 110px;
+  }
+}
+
+.form-field__error {
+  color: #c62828;
+  font-size: 0.8rem;
+}
+
+.form-field__hint {
+  color: #888;
+  font-size: 0.8rem;
+  text-align: right;
+}
+
+/* ========================================
+   BUTTON
+======================================== */
+
+.checkout__submit {
+  width: 100%;
+  min-height: 50px;
+
+  padding: 14px 18px;
+  border: 0;
+  border-radius: 9px;
+
+  background: var(--color-primary);
+  color: var(--color-white);
+
+  font: inherit;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition:
+    background-color 200ms ease,
+    transform 200ms ease;
+
+  &:hover {
+    background: #e94ba2;
+  }
+
+  &:active {
+    transform: scale(0.99);
+  }
+}
+
+/* ========================================
+   ORDER SUMMARY
+======================================== */
+
+.checkout__items {
+  display: flex;
+  flex-direction: column;
+}
+
+.checkout-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+
+  padding: 16px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.checkout-item__info {
+  min-width: 0;
+
+  h3 {
+    margin: 0 0 6px;
+    font-size: 0.95rem;
+    overflow-wrap: anywhere;
+  }
+
+  span {
+    color: #777;
+    font-size: 0.85rem;
+  }
+}
+
+.checkout-item strong {
+  flex-shrink: 0;
+  font-size: 0.95rem;
+  white-space: nowrap;
+}
+
+.checkout__summary-total {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+
+  padding: 24px 0;
+
+  span {
+    font-weight: 600;
+  }
+
+  strong {
+    color: var(--color-primary);
+    font-size: 1.4rem;
+    white-space: nowrap;
+  }
+}
+
+.checkout__notice {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  margin: 0;
+  padding: 16px;
+
+  border-radius: 8px;
+
+  background: #fff0f7;
+  color: #666;
+
+  font-size: 0.85rem;
+  line-height: 1.6;
+
+  p {
+    margin: 0;
+  }
+
+  p:first-child {
+    font-weight: 600;
+    color: #333;
+  }
+}
+
+/* ========================================
+   LOCAL PREVIEW
+======================================== */
+
+.checkout__preview {
+  margin-top: 24px;
+  padding: 20px;
+
+  border: 1px solid #f1dce7;
+  border-radius: 12px;
+
+  background: #fff9fc;
+
+  h3 {
+    margin: 0 0 14px;
+  }
+
+  p {
+    margin: 8px 0;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+  }
+
+  button {
+    margin-top: 12px;
+    padding: 10px 16px;
+
+    border: 1px solid var(--color-primary);
+    border-radius: 8px;
+
+    background: #fff;
+    color: #222;
+
+    cursor: pointer;
+  }
+}
+
+.checkout__preview-note {
+  color: #666;
+  font-size: 0.85rem;
+}
+
+/* ========================================
+   EMPTY CART
+======================================== */
+
+.checkout__empty {
+  max-width: 550px;
+  margin: 60px auto;
+  padding: 40px 24px;
+
+  border: 1px solid #f1dce7;
+  border-radius: 16px;
+
+  background: #fff;
+  text-align: center;
+
+  span {
+    font-size: 3rem;
+  }
+
+  h2 {
+    margin: 16px 0 10px;
+  }
+
+  p {
+    color: #666;
+    line-height: 1.6;
+  }
+
+  a {
+    display: inline-block;
+    margin-top: 18px;
+    padding: 14px 24px;
+
+    border-radius: 8px;
+
+    background: var(--color-primary);
+    color: var(--color-white);
+
+    text-decoration: none;
+    font-weight: 700;
+  }
+}
+
+.checkout__preview-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.checkout__confirm-btn {
+  padding: 0.85rem 1.5rem;
+  border: none;
+  border-radius: 0.5rem;
+  background-color: #f653ad;
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+
+  &:hover:not(:disabled) {
+    background-color: #e73c98;
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+.checkout__edit-btn {
+  padding: 0.85rem 1.5rem;
+  border: 1px solid #f653ad;
+  border-radius: 0.5rem;
+  background-color: transparent;
+  color: #d93689;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+
+  &:hover:not(:disabled) {
+    background-color: #ffe8f4;
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+/* ========================================
+   RESPONSIVE
+======================================== */
+
+@media (max-width: 850px) {
+  .checkout__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .checkout {
+    padding: 28px 16px 60px;
+  }
+
+  .checkout__heading {
+    margin-bottom: 24px;
+  }
+
+  .checkout__form-card,
+  .checkout__summary {
+    padding: 20px 16px;
+  }
+
+  .checkout__summary-total {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .checkout-item strong {
+    white-space: normal;
+    text-align: right;
+  }
+}
+
+@media (max-width: 480px) {
+  .checkout__preview-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .checkout__confirm-btn,
+  .checkout__edit-btn {
+    width: 100%;
+  }
+}
+
+/* ========================================
+   SUCCESS TICKET - DELICIAS MOLINA
+======================================== */
+
+.checkout__success {
+  width: 100%;
+  max-width: 680px;
+  margin: 32px auto 0;
+
+  overflow: hidden;
+
+  background: #fff;
+  border: 1px solid #f1dce7;
+  border-radius: 18px;
+
+  box-shadow: 0 12px 36px rgba(90, 35, 65, 0.06);
+}
+
+/* HEADER */
+
+.checkout__success-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  padding: 36px 28px 30px;
+
+  background: #fff0f7;
+  text-align: center;
+
+  h2 {
+    margin: 16px 0 8px;
+    color: #222;
+    font-size: clamp(1.4rem, 3vw, 1.8rem);
+  }
+
+  p {
+    max-width: 420px;
+    margin: 0;
+    color: #765d6a;
+    line-height: 1.6;
+  }
+}
+
+.checkout__success-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 68px;
+  height: 68px;
+
+  border-radius: 50%;
+
+  background: #fff;
+  color: #d93689;
+
+  font-size: 2.4rem;
+  font-weight: 700;
+
+  box-shadow: 0 4px 14px rgba(217, 54, 137, 0.12);
+}
+
+/* BODY */
+
+.checkout__success-body {
+  padding: 30px;
+}
+
+.checkout__success-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+
+  padding-bottom: 24px;
+  border-bottom: 1px solid #f1dce7;
+
+  h3 {
+    margin: 5px 0 0;
+    color: #d93689;
+    font-size: 2rem;
+  }
+}
+
+.checkout__success-label {
+  color: #786874;
+  font-size: 0.85rem;
+}
+
+.checkout__status {
+  padding: 8px 14px;
+
+  border-radius: 999px;
+
+  background: #fff0f7;
+  color: #a5286b;
+
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+/* CLIENT DETAILS */
+
+.checkout__success-details {
+  display: grid;
+  gap: 16px;
+
+  padding: 24px 0;
+  border-bottom: 1px solid #f1dce7;
+
+  >div {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+  }
+
+  span {
+    color: #786874;
+    font-size: 0.9rem;
+  }
+
+  strong {
+    color: #252025;
+    font-size: 0.9rem;
+    text-align: right;
+    overflow-wrap: anywhere;
+  }
+}
+
+/* PRODUCTS */
+
+.checkout__success-products {
+  padding: 24px 0;
+
+  h3 {
+    margin: 0 0 16px;
+    color: #252025;
+    font-size: 1rem;
+  }
+}
+
+.checkout__success-product {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+
+  padding: 12px 0;
+
+  &:not(:last-child) {
+    border-bottom: 1px solid #f4edf1;
+  }
+
+  >div {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    min-width: 0;
+  }
+
+  strong {
+    color: #252025;
+    font-size: 0.9rem;
+    overflow-wrap: anywhere;
+  }
+
+  span {
+    color: #786874;
+    font-size: 0.85rem;
+  }
+
+  >strong {
+    flex-shrink: 0;
+    white-space: nowrap;
+  }
+}
+
+/* COMMENTS */
+
+.checkout__success-comments {
+  padding: 16px;
+  margin-bottom: 20px;
+
+  border-radius: 10px;
+  background: #fff9fc;
+
+  h3 {
+    margin: 0 0 8px;
+    font-size: 0.95rem;
+  }
+
+  p {
+    margin: 0;
+    color: #765d6a;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    overflow-wrap: anywhere;
+  }
+}
+
+/* TOTAL */
+
+.checkout__success-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+
+  padding: 22px 0;
+
+  border-top: 1px solid #f1dce7;
+
+  span {
+    color: #252025;
+    font-weight: 700;
+  }
+
+  strong {
+    color: #d93689;
+    font-size: 1.65rem;
+    white-space: nowrap;
+  }
+}
+
+/* NOTICE */
+
+.checkout__success-notice {
+  padding: 18px;
+  border-radius: 10px;
+
+  background: #fff9fc;
+  border: 1px solid #f6e1ec;
+
+  strong {
+    color: #a5286b;
+    font-size: 0.95rem;
+  }
+
+  p {
+    margin: 8px 0 0;
+    color: #765d6a;
+    font-size: 0.88rem;
+    line-height: 1.65;
+  }
+}
+
+/* BACK BUTTON */
+
+.checkout__success-back {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+
+  margin-top: 24px;
+  padding: 15px 20px;
+
+  border-radius: 9px;
+
+  background: var(--color-primary);
+  color: var(--color-white);
+
+  text-align: center;
+  text-decoration: none;
+  font-weight: 700;
+
+  transition: background-color 200ms ease;
+
+  &:hover {
+    background: #e94ba2;
+  }
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 480px) {
+  .checkout__success {
+    margin-top: 24px;
+  }
+
+  .checkout__success-header {
+    padding: 28px 20px;
+  }
+
+  .checkout__success-body {
+    padding: 22px 18px;
+  }
+
+  .checkout__success-details>div {
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .checkout__success-details strong {
+    text-align: left;
+  }
+
+  .checkout__success-total strong {
+    font-size: 1.35rem;
+  }
+}
+
+
