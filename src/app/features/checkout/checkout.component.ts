@@ -193,4 +193,55 @@ export class CheckoutComponent {
         }
       });
   }
+
+  private buildWhatsAppMessage(order: Order): string {
+    const products = order.items
+      .map((item) => {
+        const subtotal = item.subtotal.toFixed(2);
+
+        return `• ${item.productName} x${item.quantity} — $${subtotal}`;
+      })
+      .join('\n');
+
+    const total =
+      order.total !== null
+      ? `$${order.total.toFixed(2)} MXN`
+      : 'Pendiente de cotización';
+
+    return [
+      '¡Hola, Delicias Molina! 🎂',
+      '',
+      `Quisiera dar seguimiento a mi pedido #${order.id}.`,
+      '',
+      `Cliente: ${order.clientName}`,
+      `Entrega solicitada: ${order.deliveryDate}`,
+      '',
+      'Productos:',
+      products,
+      '',
+      `Total registrado: ${total}`,
+      ...(order.comments
+        ? ['', `Indicaciones: ${order.comments}`]
+        : []),
+      '',
+      'Me mantengo al pendiente de su confirmación. ¡Gracias!',
+    ].join('\n');
+  }
+
+  openWhatsApp(order: Order): void {
+    const number = sessionStorage.getItem(
+      'delicias_whatsapp_test_number'
+    );
+
+    if (!number || !/^52\d{10}$/.test(number)) {
+      alert('Configura primero el número de WhatsApp de prueba.');
+      return;
+    }
+
+    const message = this.buildWhatsAppMessage(order);
+
+    const url = `https://wa.me/${number}?text=${encodeURIComponent(message)}`;
+
+    window.location.assign(url);
+  }
 }

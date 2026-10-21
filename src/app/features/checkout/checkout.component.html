@@ -117,9 +117,21 @@
             </p>
           </div>
 
-          <a routerLink="/menu" class="checkout__success-back">
-            Volver al menú
-          </a>
+          <div class="checkout__success-actions">
+            <button
+              type="button"
+              class="checkout__whatsapp-btn"
+              (click)="openWhatsApp(order)"
+              >
+              Continuar por WhatsApp
+
+            </button>
+
+            <a routerLink="/menu" class="checkout__success-back">
+              Volver al menú
+            </a>
+          </div>
+
         </div>
       </div>
     } @else if (isCartEmpty()) {

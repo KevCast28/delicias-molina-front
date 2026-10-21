@@ -724,4 +724,46 @@
   }
 }
 
+/* ========================================
+   WHATSAPP ACTION
+======================================== */
+
+.checkout__success-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.checkout__whatsapp-btn {
+  width: 100%;
+  min-height: 50px;
+  padding: 14px 20px;
+
+  border: none;
+  border-radius: 9px;
+
+  background: #25d366;
+  color: #fff;
+
+  font: inherit;
+  font-weight: 700;
+
+  cursor: pointer;
+  transition: background-color 200ms ease;
+
+  &:hover {
+    background: #1da851;
+  }
+
+  &:focus-visible {
+    outline: 3px solid #128c4a;
+    outline-offset: 3px;
+  }
+}
+
+.checkout__success-actions .checkout__success-back {
+  margin-top: 0;
+}
+
 
