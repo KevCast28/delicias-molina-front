@@ -1,0 +1,394 @@
+/* ========================================
+   CART DRAWER - DELICIAS MOLINA
+======================================== */
+
+.cart-drawer {
+  display: flex;
+  flex-direction: column;
+
+  width: 100%;
+  height: 100%;
+
+  padding: 24px;
+  box-sizing: border-box;
+
+  background: var(--color-white);
+  overflow: hidden;
+}
+
+/* ========================================
+   HEADER
+======================================== */
+
+.cart-drawer__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+
+  padding-bottom: 20px;
+  border-bottom: 1px solid #e5e5e5;
+
+  h2 {
+    margin: 0 0 4px;
+    font-size: 1.5rem;
+    line-height: 1.3;
+  }
+
+  span {
+    font-size: 0.875rem;
+    color: #666;
+  }
+}
+
+.cart-drawer__close,
+.cart-item__remove {
+  flex-shrink: 0;
+
+  border: 0;
+  background: transparent;
+
+  font-size: 1rem;
+  cursor: pointer;
+
+  transition: color 200ms ease;
+
+  &:hover {
+    color: var(--color-primary);
+  }
+}
+
+/* ========================================
+   PRODUCTS LIST
+======================================== */
+
+.cart-drawer__items {
+  flex: 1;
+  min-height: 0;
+
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  scrollbar-width: thin;
+  scrollbar-color: #ddd transparent;
+}
+
+.cart-item {
+  padding: 20px 0;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.cart-item__row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.cart-item__image {
+  width: 88px;
+  height: 88px;
+
+  flex-shrink: 0;
+
+  object-fit: cover;
+  border-radius: 10px;
+
+  background: #f8f8f8;
+}
+
+.cart-item__details {
+  flex: 1;
+  min-width: 0;
+}
+
+.cart-item__content {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.cart-item__info {
+  flex: 1;
+  min-width: 0;
+
+  h3 {
+    margin: 0 0 6px;
+
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.4;
+
+    overflow-wrap: anywhere;
+  }
+}
+
+.cart-item__price {
+  color: var(--color-primary);
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.cart-item__actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+
+  margin-top: 12px;
+
+  strong {
+    font-size: 0.95rem;
+    font-weight: 700;
+    text-align: right;
+    overflow-wrap: anywhere;
+  }
+}
+
+/* ========================================
+   QUANTITY CONTROLS
+======================================== */
+
+.cart-item__quantity {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  flex-shrink: 0;
+
+  span {
+    min-width: 16px;
+    text-align: center;
+    font-weight: 600;
+  }
+
+  button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    width: 32px;
+    height: 32px;
+
+    border: 1px solid #ddd;
+    border-radius: 50%;
+
+    background: var(--color-white);
+    color: #222;
+
+    font-size: 1rem;
+    cursor: pointer;
+
+    transition:
+      border-color 200ms ease,
+      background-color 200ms ease;
+
+    &:hover {
+      border-color: var(--color-primary);
+      background: #fff0f7;
+    }
+
+    &:active {
+      transform: scale(0.95);
+    }
+  }
+}
+
+/* ========================================
+   ORDER SUMMARY
+======================================== */
+
+.cart-drawer__summary {
+  flex-shrink: 0;
+
+  padding-top: 20px;
+  border-top: 1px solid #e5e5e5;
+}
+
+.cart-drawer__total {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+
+  margin-bottom: 16px;
+
+  span {
+    font-weight: 600;
+  }
+
+  strong {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    text-align: right;
+  }
+}
+
+/* ========================================
+   CHECKOUT BUTTON
+======================================== */
+
+.cart-drawer__checkout {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+  min-height: 48px;
+  padding: 14px 16px;
+
+  box-sizing: border-box;
+
+  border-radius: 8px;
+
+  background: var(--color-primary);
+  color: var(--color-white);
+
+  text-align: center;
+  text-decoration: none;
+  font-weight: 700;
+  line-height: 1.4;
+
+  cursor: pointer;
+
+  transition:
+    background-color 200ms ease,
+    transform 200ms ease;
+
+  &:hover {
+    background: #e94ba2;
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
+}
+
+.cart-drawer__clear {
+  display: block;
+
+  margin: 14px auto 0;
+  padding: 6px;
+
+  border: 0;
+  background: transparent;
+
+  color: #555;
+  font-size: 0.875rem;
+
+  cursor: pointer;
+  text-decoration: underline;
+
+  &:hover {
+    color: var(--color-primary);
+  }
+}
+
+/* ========================================
+   EMPTY CART
+======================================== */
+
+.cart-drawer__empty {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  min-height: 0;
+  padding: 24px 0;
+
+  text-align: center;
+
+  h3 {
+    margin: 16px 0 8px;
+    font-size: 1.2rem;
+  }
+
+  p {
+    max-width: 280px;
+    margin: 0;
+
+    color: #666;
+    line-height: 1.6;
+  }
+}
+
+.cart-drawer__empty-icon {
+  font-size: 3rem;
+}
+
+/* ========================================
+   RESPONSIVE
+======================================== */
+
+@media (max-width: 480px) {
+  .cart-drawer {
+    padding: 20px 16px;
+  }
+
+  .cart-drawer__header {
+    padding-bottom: 16px;
+
+    h2 {
+      font-size: 1.4rem;
+    }
+  }
+
+  .cart-item {
+    padding: 16px 0;
+  }
+
+  .cart-item__row {
+    gap: 10px;
+  }
+
+  .cart-item__image {
+    width: 72px;
+    height: 72px;
+  }
+
+  .cart-item__actions {
+    flex-wrap: wrap;
+  }
+
+  .cart-item__actions strong {
+    margin-left: auto;
+  }
+
+  .cart-drawer__checkout {
+    min-height: 50px;
+  }
+}
+
+/* Extremely narrow screens */
+@media (max-width: 320px) {
+  .cart-item__actions {
+    align-items: flex-start;
+    flex-direction: column;
+
+    strong {
+      align-self: flex-end;
+    }
+  }
+
+  .cart-drawer__total {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
+
+/* ========================================
+   ACCESSIBILITY
+======================================== */
+
+@media (prefers-reduced-motion: reduce) {
+
+  .cart-drawer button,
+  .cart-drawer__checkout {
+    transition: none;
+  }
+}

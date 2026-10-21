@@ -1,1 +1,39 @@
 /* You can add global styles to this file, and also import other style files */
+
+:root {
+  // Brand
+  --color-primary: #fb64b6;
+  --color-primary-light: #fccee8;
+
+  // Backgrounds
+  --color-white: #ffffff;
+  --color-background: #ffffff
+  --color-background-soft: #fff5fa;
+
+  // Text
+  --color-text: #0a0a0a;
+  --color-text-muted: #666666;
+
+  // Borders
+  --color-border: #f0e6eb;
+
+  // Semantic colors
+  --color-success: #00c950;
+
+  // Global reset
+  * {
+    box-sizing: border-box;
+  }
+
+  html,
+  body {
+    margin: 0;
+    padding: 0;
+    min-height: 100%;
+    width: 100%;
+  }
+
+  body {
+    background-color: var(--color-background);
+  }
+}

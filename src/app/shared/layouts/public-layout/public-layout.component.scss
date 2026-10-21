@@ -1,0 +1,65 @@
+:host {
+  display: flex;
+  flex-direction: column;
+
+  min-height: 100vh;
+}
+
+main {
+  flex: 1;
+}
+
+.cart-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+
+  background: rgba(0, 0, 0, 0.45);
+
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+
+  transition:
+    opacity 250ms ease,
+    visibility 250ms ease;
+}
+
+.cart-overlay--visible {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+app-cart-drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 1001;
+
+  display: block;
+  width: min(420px, 100vw);
+  height: 100dvh;
+
+  transform: translateX(100%);
+  visibility: hidden;
+  pointer-events: none;
+
+  transition:
+    transform 300ms ease,
+    visibility 300ms ease;
+}
+
+app-cart-drawer.cart-drawer--open {
+  transform: translateX(0);
+  visibility: visible;
+  pointer-events: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  .cart-overlay,
+  app-cart-drawer {
+    transition: none;
+  }
+}
